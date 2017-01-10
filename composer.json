@@ -1,5 +1,5 @@
 {
-  "name": "brainformatik/caldav",
+  "name": "brainformatik/caldav-framework",
   "type": "library",
   "description": "Brainformatik CalDAV Framework",
   "keywords": ["brainformatik", "caldav", "crm", "vtiger"],
