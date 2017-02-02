@@ -54,7 +54,7 @@ class TimeZone {
             throw new \InvalidArgumentException('The found time zone ID does not match the given ID!');
         }
 
-        // some clients take the last definition of DAYLIGHT and STANDARD, so we make sure that latest rules (defined by RRULE) are the last ones
+        // some server take the last definition of DAYLIGHT and STANDARD, so we make sure that latest rules (defined by RRULE) are the last ones
         $definitions = [];
 
         $dayLightDefinitions = $timeZone->select('DAYLIGHT');
