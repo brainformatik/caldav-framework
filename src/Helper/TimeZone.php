@@ -54,6 +54,39 @@ class TimeZone {
             throw new \InvalidArgumentException('The found time zone ID does not match the given ID!');
         }
 
+        // some clients take the last definition of DAYLIGHT and STANDARD, so we make sure that latest rules (defined by RRULE) are the last ones
+        $definitions = [];
+
+        $dayLightDefinitions = $timeZone->select('DAYLIGHT');
+
+        foreach ($dayLightDefinitions as $dayLightDefinition) {
+
+            if (count($dayLightDefinition->select('RRULE'))) {
+                array_push($definitions, $dayLightDefinition);
+            } else {
+                array_unshift($definitions, $dayLightDefinition);
+            }
+
+            $timeZone->remove($dayLightDefinition);
+        }
+
+        $standardDefinitions = $timeZone->select('STANDARD');
+
+        foreach ($standardDefinitions as $standardDefinition) {
+
+            if (count($standardDefinition->select('RRULE'))) {
+                array_push($definitions, $standardDefinition);
+            } else {
+                array_unshift($definitions, $standardDefinition);
+            }
+
+            $timeZone->remove($standardDefinition);
+        }
+
+        foreach ($definitions as $definition) {
+            $timeZone->add($definition);
+        }
+
         return $timeZone;
     }
 }
