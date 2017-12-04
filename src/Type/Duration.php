@@ -42,6 +42,11 @@ class Duration implements StringTypeInterface {
      * @var int
      */
     protected $week = 0;
+    
+    /**
+     * @var bool
+     */
+    protected $negative = false;
 
     /**
      * Returns the string representation of the object
@@ -55,8 +60,12 @@ class Duration implements StringTypeInterface {
         if (0 === $this->day && 0 === $this->hour && 0 === $this->minute && 0 === $this->second && 0 === $this->week) {
             throw new \UnexpectedValueException('At least one duration value must be set!');
         }
-
-        $duration = 'P';
+    
+        if ($this->negative) {
+            $duration = '-P';
+        } else {
+            $duration = 'P';
+        }
 
         if (0 !== $this->week) {
             $duration .= $this->week . 'W';
@@ -163,6 +172,22 @@ class Duration implements StringTypeInterface {
 
         $this->week = $week;
 
+        return $this;
+    }
+    
+    /**
+     * @param bool $negative
+     *
+     * @return Duration
+     */
+    public function setNegative($negative = true) {
+        
+        if (!is_bool($negative)) {
+            throw new \InvalidArgumentException('Value for negative must be a boolean');
+        }
+        
+        $this->negative = $negative;
+        
         return $this;
     }
 }

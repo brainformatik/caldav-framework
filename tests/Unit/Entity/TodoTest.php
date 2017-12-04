@@ -46,7 +46,7 @@ class TodoTest extends BaseTestCase {
     public function testConstruct() {
         $this->assertException(function() {
             new Todo('Calendar');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $event = new Todo($this->calendar);
 
@@ -84,7 +84,7 @@ class TodoTest extends BaseTestCase {
     public function testSetCompleted() {
         $this->assertException(function() {
             $this->todo->setCompleted('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $this->todo->setCompleted(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -101,7 +101,7 @@ class TodoTest extends BaseTestCase {
     public function testSetDue() {
         $this->assertException(function() {
             $this->todo->setDue('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         // test date time with time zone
         $this->todo->setDue(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -347,7 +347,7 @@ class TodoTest extends BaseTestCase {
     public function testSetDateStart() {
         $this->assertException(function() {
             $this->todo->setDateStart('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         // test date time with time zone
         $this->todo->setDateStart(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -388,7 +388,7 @@ class TodoTest extends BaseTestCase {
     public function testSetDuration() {
         $this->assertException(function() {
             $this->todo->setDuration('P4W');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $duration = new Duration();
         $duration->setWeek(5);
@@ -443,7 +443,7 @@ class TodoTest extends BaseTestCase {
     public function testAddAttendee() {
         $this->assertException(function() {
             $this->todo->addAttendee('John Doe');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $wrongAttendeeType = new Attendee('address@domain.tdn', 'Event');
@@ -463,7 +463,7 @@ class TodoTest extends BaseTestCase {
     public function testSetContact() {
         $this->assertException(function() {
             $this->todo->setContact('John Doe');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $contact = new Contact('John Doe');
 
@@ -478,7 +478,7 @@ class TodoTest extends BaseTestCase {
     public function testSetOrganizer() {
         $this->assertException(function() {
             $this->todo->setOrganizer('John Doe');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $organizer = new Organizer('address@domain.tdn');
 
@@ -493,7 +493,7 @@ class TodoTest extends BaseTestCase {
     public function testSetDateCreated() {
         $this->assertException(function() {
             $this->todo->setDateCreated('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $this->todo->setDateCreated(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -510,7 +510,7 @@ class TodoTest extends BaseTestCase {
     public function testSetDateLastModified() {
         $this->assertException(function() {
             $this->todo->setDateLastModified('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $this->todo->setDateLastModified(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -626,7 +626,7 @@ class TodoTest extends BaseTestCase {
     public function testSetRecurrenceRule() {
         $this->assertException(function() {
             $this->todo->setRecurrenceRule('FREQ=DAILY;COUNT=10');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $recurrenceRule = new RecurrenceRule();
         $recurrenceRule->setFrequency(RecurrenceFrequency::HOURLY);
@@ -646,7 +646,7 @@ class TodoTest extends BaseTestCase {
             $this->invokeMethod($this->todo, 'createDateProperty', [
                 'DTSTART', '2016-12-12 11:00:00', false
             ]);
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         // check normal date time value
         $dateTimeProperty = $this->invokeMethod($this->todo, 'createDateProperty', [
@@ -680,7 +680,7 @@ class TodoTest extends BaseTestCase {
             $this->invokeMethod($this->todo, 'checkTimeZone', [
                 '2016-12-12 11:00:00'
             ]);
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $timeZoneAdded = $this->invokeMethod($this->todo, 'checkTimeZone', [
             new \DateTime('2016-12-12 11:00:00', new DateTimeZone('UTC'))

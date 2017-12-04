@@ -157,7 +157,7 @@ abstract class BaseTestCase extends TestCase {
 
         try {
             $callback();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             $className = get_class($e);
 
             $this->assertInstanceOf($expectedException, $e);

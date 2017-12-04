@@ -24,7 +24,7 @@ class PeriodTest extends BaseTestCase {
     public function testSetStart() {
         $this->assertException(function() {
             $this->period->setStart('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function () {
             $newYorkTime = new DateTime('2016-12-12 11:00:00', new DateTimeZone('America/New_York'));
@@ -37,7 +37,7 @@ class PeriodTest extends BaseTestCase {
     public function testSetEnd() {
         $this->assertException(function() {
             $this->period->setEnd('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function () {
             $newYorkTime = new DateTime('2016-12-12 11:00:00', new DateTimeZone('America/New_York'));
@@ -50,7 +50,7 @@ class PeriodTest extends BaseTestCase {
     public function testSetDuration() {
         $this->assertException(function() {
             $this->period->setDuration('P4W');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $duration = new Duration();
         $this->period->setDuration($duration);

@@ -502,6 +502,17 @@ abstract class AbstractEntity {
     public function setRecurrenceRule(RecurrenceRule $rule) {
         $this->instance->add($this->calendar->createProperty('RRULE', $rule->toString()));
     }
+    
+    /**
+     * Add alarm component to current entity
+     *
+     * @see https://tools.ietf.org/html/rfc5545#section-3.6.6
+     *
+     * @return Alarm
+     */
+    public function addAlarm() {
+        return new Alarm($this->calendar);
+    }
 
     /**
      * Creates a new date time property including check for floating date time

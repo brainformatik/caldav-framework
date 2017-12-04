@@ -46,7 +46,7 @@ class RecurrenceRuleTest extends BaseTestCase {
     public function testSetUntil() {
         $this->assertException(function() {
             $this->recurrenceRule->setUntil('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $americanDateTime = new DateTime('2016-12-12 11:00:00', new DateTimeZone('America/New_York'));

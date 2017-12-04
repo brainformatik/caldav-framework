@@ -47,7 +47,7 @@ class EventTest extends BaseTestCase {
     public function testConstruct() {
         $this->assertException(function() {
             new Event('Calendar');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $event = new Event($this->calendar);
 
@@ -63,7 +63,7 @@ class EventTest extends BaseTestCase {
     public function testSetDateEnd() {
         $this->assertException(function() {
             $this->event->setDateEnd('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         // test date time with time zone
         $this->event->setDateEnd(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -322,7 +322,7 @@ class EventTest extends BaseTestCase {
     public function testSetDateStart() {
         $this->assertException(function() {
             $this->event->setDateStart('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         // test date time with time zone
         $this->event->setDateStart(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -363,7 +363,7 @@ class EventTest extends BaseTestCase {
     public function testSetDuration() {
         $this->assertException(function() {
             $this->event->setDuration('P4W');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $duration = new Duration();
         $duration->setWeek(5);
@@ -418,7 +418,7 @@ class EventTest extends BaseTestCase {
     public function testAddAttendee() {
         $this->assertException(function() {
             $this->event->addAttendee('John Doe');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $wrongAttendeeType = new Attendee('address@domain.tdn', 'Todo');
@@ -438,7 +438,7 @@ class EventTest extends BaseTestCase {
     public function testSetContact() {
         $this->assertException(function() {
             $this->event->setContact('John Doe');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $contact = new Contact('John Doe');
 
@@ -453,7 +453,7 @@ class EventTest extends BaseTestCase {
     public function testSetOrganizer() {
         $this->assertException(function() {
             $this->event->setOrganizer('John Doe');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $organizer = new Organizer('address@domain.tdn');
 
@@ -468,7 +468,7 @@ class EventTest extends BaseTestCase {
     public function testSetDateCreated() {
         $this->assertException(function() {
             $this->event->setDateCreated('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $this->event->setDateCreated(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -485,7 +485,7 @@ class EventTest extends BaseTestCase {
     public function testSetDateLastModified() {
         $this->assertException(function() {
             $this->event->setDateLastModified('2016-12-12 11:00:00');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $this->assertException(function() {
             $this->event->setDateLastModified(new \DateTime('2016-12-12 11:00:00', new DateTimeZone('Europe/Berlin')));
@@ -601,7 +601,7 @@ class EventTest extends BaseTestCase {
     public function testSetRecurrenceRule() {
         $this->assertException(function() {
             $this->event->setRecurrenceRule('FREQ=DAILY;COUNT=10');
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $recurrenceRule = new RecurrenceRule();
         $recurrenceRule->setFrequency(RecurrenceFrequency::HOURLY);
@@ -621,7 +621,7 @@ class EventTest extends BaseTestCase {
             $this->invokeMethod($this->event, 'createDateProperty', [
                 'DTSTART', '2016-12-12 11:00:00', false
             ]);
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         // check normal date time value
         $dateTimeProperty = $this->invokeMethod($this->event, 'createDateProperty', [
@@ -655,7 +655,7 @@ class EventTest extends BaseTestCase {
             $this->invokeMethod($this->event, 'checkTimeZone', [
                 '2016-12-12 11:00:00'
             ]);
-        }, PHPUnit_Framework_Error::class);
+        }, TypeError::class);
 
         $timeZoneAdded = $this->invokeMethod($this->event, 'checkTimeZone', [
             new \DateTime('2016-12-12 11:00:00', new DateTimeZone('UTC'))
