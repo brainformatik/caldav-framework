@@ -511,7 +511,7 @@ abstract class AbstractEntity {
      * @return Alarm
      */
     public function addAlarm() {
-        return new Alarm($this->calendar);
+        return new Alarm($this->calendar, $this->instance);
     }
 
     /**

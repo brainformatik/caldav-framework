@@ -50,7 +50,7 @@ class AlarmTest extends BaseTestCase {
             new Alarm('Calendar', $this->todo);
         }, TypeError::class);
         
-        $alarm = new Alarm($this->calendar, $this->todo);
+        $alarm = $this->todo->addAlarm();
         
         $vAlarm = $this->invokeProperty($alarm, 'instance');
         

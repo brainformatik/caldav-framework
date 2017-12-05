@@ -27,9 +27,9 @@ class Alarm {
      */
     protected $calendar;
     
-    public function __construct(VCalendar $calendar) {
+    public function __construct(VCalendar $calendar, $instance) {
         $this->calendar = $calendar;
-        $this->instance = $this->calendar->add('VALARM');
+        $this->instance = $instance->add('VALARM');
     }
     
     /**
