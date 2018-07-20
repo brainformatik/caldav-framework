@@ -3,11 +3,38 @@
 [![Build Status](https://travis-ci.org/brainformatik/caldav-framework.svg?branch=master)](https://travis-ci.org/brainformatik/caldav-framework)
 [![codecov](https://codecov.io/gh/brainformatik/caldav-framework/branch/master/graph/badge.svg)](https://codecov.io/gh/brainformatik/caldav-framework)
 
+> PHP Framework for CalDAV
+
 ## Description
 
 This framework abstracts all VCALENDAR entities. In addition it automatically adds required timezone information for dates. You can simply work with PHP DateTime and DateTimeZone objects.
 
 After creating an event or a todo and setting all required values, you can create the vcalendar output or save the entry directly.
+
+## Installing via composer
+
+First, download and install composer:
+[Composer](http://getcomposer.org).
+
+Next, run the composer command to install the latest stable version of the CalDAV framework:
+
+```bash
+composer require brainformatik/caldav-framework
+```
+
+## Installing manually
+
+First, download the latest version of CalDAV framework:
+[CalDAV Framework](https://github.com/brainformatik/caldav-framework/releases).
+
+Next, unzip and move this package in your application structure.
+
+Last, use package autoloader to load the CalDAV framework classes:
+
+```php
+<?php
+require_once 'caldav-framework/autoload.php';
+```
 
 ## Example usage
 
