@@ -1,5 +1,8 @@
 # CalDAV Framework
 
+[![Build Status](https://travis-ci.org/brainformatik/caldav-framework.svg?branch=master)](https://travis-ci.org/brainformatik/caldav-framework)
+[![codecov](https://codecov.io/gh/brainformatik/caldav-framework/branch/master/graph/badge.svg)](https://codecov.io/gh/brainformatik/caldav-framework)
+
 ## Description
 
 This framework abstracts all VCALENDAR entities. In addition it automatically adds required timezone information for dates. You can simply work with PHP DateTime and DateTimeZone objects.
