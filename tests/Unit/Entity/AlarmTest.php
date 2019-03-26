@@ -173,6 +173,28 @@ class AlarmTest extends BaseTestCase {
         $this->assertContains("TRIGGER:P5W\r\n", $iCalendarString);
     }
     
+    public function testSetTriggerDate() {
+        $this->assertException(function () {
+            $this->alarm->setTriggerDate('2019-01-01');
+        }, TypeError::class);
+    
+        $dateTimeEurope = new \DateTime('2019-01-01 08:00:00', new \DateTimeZone('Europe/Berlin'));
+        
+        $this->assertException(function () use ($dateTimeEurope) {
+            $this->alarm->setTriggerDate($dateTimeEurope);
+        }, InvalidArgumentException::class, null, 'The value must use UTC as time zone!');
+        
+        $dateTime = new \DateTime('2019-01-01 08:00:00', new DateTimeZone('Europe/Berlin'));
+        $dateTime->setTimezone(new DateTimeZone('UTC'));
+        
+        $this->alarm->setTriggerDate($dateTime);
+    
+        $iCalendarString = $this->calendar->serialize();
+    
+        $this->assertInternalType('string', $iCalendarString);
+        $this->assertContains("TRIGGER;VALUE=DATE-TIME:20190101T070000Z\r\n", $iCalendarString);
+    }
+    
     public function testSetAction() {
         $this->assertException(function () {
             $this->alarm->setAction('UnknownFrequency');

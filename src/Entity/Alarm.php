@@ -9,7 +9,6 @@
 namespace Brainformatik\CalDAV\Entity;
 
 use Brainformatik\CalDAV\Enum\Action;
-use Brainformatik\CalDAV\Helper\TimeZone;
 use Brainformatik\CalDAV\Type\Attendee;
 use Brainformatik\CalDAV\Type\Duration;
 use Sabre\VObject\Component\VCalendar;
@@ -42,6 +41,30 @@ class Alarm {
      */
     public function setTrigger(Duration $duration, array $parameters = null) {
         $this->instance->add($this->calendar->createProperty('TRIGGER', $duration->toString(), $parameters));
+    }
+    
+    /**
+     * Specify an absolute date as trigger
+     *
+     * @param \DateTimeInterface $date - Must be in UTC
+     * @param array|null         $parameters
+     *
+     * @throws \Sabre\VObject\InvalidDataException
+     */
+    public function setTriggerDate(\DateTimeInterface $date, array $parameters = null) {
+        $timeZone = $date->getTimezone();
+        
+        if ('UTC' !== $timeZone->getName()) {
+            throw new \InvalidArgumentException('The value must use UTC as time zone!');
+        }
+        
+        if (null === $parameters) {
+            $parameters = [];
+        }
+        
+        $parameters['VALUE'] = 'DATE-TIME';
+        
+        $this->instance->add($this->calendar->createProperty('TRIGGER', $date->format('Ymd\THis\Z'), $parameters));
     }
     
     /**
@@ -151,4 +174,12 @@ class Alarm {
         }
     }
     
+    /**
+     * Checks if the given status is valid for this entity
+     *
+     * @param string $status
+     */
+    protected function isStatusValid($status) {
+        throw new \RuntimeException('this method is not supported for this entity!');
+    }
 }
